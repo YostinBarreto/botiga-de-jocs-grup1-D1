@@ -1,0 +1,28 @@
+def calcular_facturacion():
+    with open('dades.csv', mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+        facturacion_sin_iva, facturacion_con_iva, total_productos_vendidos = 0.0, 0.0, 0
+        productos_diferentes = set()
+
+        for row in reader:
+            cantidad = int(row['Quantitat_Venuda'])
+            precio = float(row['Preu_Unitari'])
+            iva = float(row['IVA'])
+
+            precio_sin_iva = cantidad * precio
+            precio_con_iva = precio_sin_iva * (1 + iva / 100)
+
+            facturacion_sin_iva += precio_sin_iva
+            facturacion_con_iva += precio_con_iva
+            total_productos_vendidos += cantidad
+            productos_diferentes.add(row['Producte'])
+
+        print("\n" + "=" * 50)
+        print("INFORME DE FACTURACIÓN")
+        print("=" * 50)
+        print(f"Productos diferentes vendidos: {len(productos_diferentes)}")
+        print(f"Unidades totales vendidas: {total_productos_vendidos}")
+        print(f"Facturación total sin IVA: {facturacion_sin_iva:.2f}€")
+        print(f"Facturación total con IVA: {facturacion_con_iva:.2f}€")
+        print("=" * 50)
