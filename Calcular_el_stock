@@ -1,0 +1,26 @@
+def mostrar_stock():
+    with open('dades.csv', mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+        stock = {}
+
+        for row in reader:
+            producto = row['Producte']
+            categoria = row['Categoria']
+            cantidad = int(row['Estoc_Disponible'])
+
+            if producto in stock:
+                stock[producto]['cantidad'] += cantidad
+            else:
+                stock[producto] = {'cantidad': cantidad, 'categoria': categoria}
+
+        print("\n" + "=" * 50)
+        print("STOCK DISPONIBLE")
+        print("=" * 50)
+        print("{:<40} {:<20} {:<10}".format("Producto", "Categoría", "Cantidad"))
+        print("-" * 70)
+
+        for producto, info in sorted(stock.items()):
+            print(f"{producto:<40} {info['categoria']:<20} {info['cantidad']:<10}")
+
+        print("=" * 70)
