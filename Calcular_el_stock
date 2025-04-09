@@ -9,7 +9,7 @@ def mostrar_stock():
         for row in reader:
             producto = row['Producte']
             categoria = row['Categoria']
-            cantidad = int(row['Estoc_Disponible'])
+            cantidad = int(row['estoc_disponible'])
 
             if producto in stock:
                 stock[producto]['cantidad'] += cantidad
