@@ -1,7 +1,12 @@
+ import csv
+from datetime import datetime
+
+# Menú Principal 
+
 def mostrar_menu():
     while True:
         print("\n" + "=" * 50)
-        print("SISTEMA DE ANALÍTICAS - TIENDA DE VIDEOJUEGOS")
+        print("sistema de analiticas - tienda de videojuegos")
         print("=" * 50)
         opciones = {
             "1": "Calcular facturación total",
