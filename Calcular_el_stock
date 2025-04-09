@@ -1,3 +1,5 @@
+# Calcular el stock 
+
 def mostrar_stock():
     with open('dades.csv', mode='r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
@@ -15,7 +17,7 @@ def mostrar_stock():
                 stock[producto] = {'cantidad': cantidad, 'categoria': categoria}
 
         print("\n" + "=" * 50)
-        print("STOCK DISPONIBLE")
+        print("stock diponible")
         print("=" * 50)
         print("{:<40} {:<20} {:<10}".format("Producto", "Categoría", "Cantidad"))
         print("-" * 70)
