@@ -1,7 +1,4 @@
- import csv
-from datetime import datetime
-
-# Menú Principal 
+ Menú Principal 
 
 def mostrar_menu():
     while True:
