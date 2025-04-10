@@ -1,0 +1,43 @@
+# Resumen de los 3 mejores productos
+
+def top_productos():
+    with open('dades.csv', mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+        productos = {}
+
+        for row in reader:
+            nombre_producto = row['Producte']
+            cantidad = int(row['Quantitat_Venuda'])
+            precio = float(row['Preu_Unitari'])
+            iva = float(row['IVA'])
+
+            if nombre_producto in productos:
+                productos[nombre_producto]['cantidad'] += cantidad
+                productos[nombre_producto]['facturacion_sin_iva'] += cantidad * precio
+                productos[nombre_producto]['facturacion_con_iva'] += cantidad * precio * (1 + iva / 100)
+            else:
+                productos[nombre_producto] = {
+                    'categoria': row['Categoria'],
+                    'cantidad': cantidad,
+                    'facturacion_sin_iva': cantidad * precio,
+                    'facturacion_con_iva': cantidad * precio * (1 + iva / 100)
+                }
+
+        top3 = sorted(productos.items(), key=lambda x: x[1]['cantidad'], reverse=True)[:3]
+
+        print("\n" + "=" * 50)
+        print("top 3 productos vendidos")
+        print("=" * 50)
+        print("{:<5} {:<40} {:<20} {:<15} {:<20} {:<20}".format(
+            "Pos.", "Producto", "Categoría", "Unidades vendidas", "Facturación (s/IVA)", "Facturación (c/IVA)"))
+        print("-" * 120)
+
+        for i, (producto, info) in enumerate(top3, 1):
+            print(f"{i:<5} {producto:<40} {info['categoria']:<20} {info['cantidad']:<15} "
+                  f"{info['facturacion_sin_iva']:<20.2f}€ {info['facturacion_con_iva']:<20.2f}€")
+
+        print("=" * 120)
+
+if __name__ == "__main__":
+    mostrar_menu()
